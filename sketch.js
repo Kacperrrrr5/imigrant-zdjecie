@@ -109,14 +109,14 @@ function takePhoto() {
     
     if (photoStage === 0) {
       img.filter(BLUR, 3); // Zastosowanie filtru rozmycia
-      showMessage("Zdjęcie jest rozmyte, proszę zrobić kolejne.", "red");
+      showMessage("Zdjęcie jest rozmyte, proszę spróbować ponownie.", "red");
     } else if (photoStage === 1) {
       img = increaseBrightness(img, 150); // Zwiększenie jasności, aby symulować prześwietlenie
-      showMessage("Zdjęcie jest prześwietlone, proszę zrobić kolejne.", "red");
+      showMessage("Zdjęcie jest prześwietlone, proszę spróbować ponownie.", "red");
     } else if (photoStage === 2) {
       img.filter(BLUR, 3); // Zastosowanie filtru rozmycia
       img = increaseBrightness(img, 150); // Zwiększenie jasności, aby symulować prześwietlenie
-      showMessage("Zdjęcie jest świetnie wykonane!", "green");
+      showMessage("Zdjęcie jest poprawnie wykonane.", "green");
     }
 
     showLiveFeed = false; // Przestań wyświetlać live feed
