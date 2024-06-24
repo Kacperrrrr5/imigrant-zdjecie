@@ -29,7 +29,7 @@ function setup() {
   
   let button = createButton('Zrób zdjęcie');
   let xOffset = (width - 640) / 2;
-  let yOffset = (height - 480) / 2;
+  let yOffset = (height - 480) / 2 + 100;  // Przesunięcie kamery o 100 pikseli w dół
   button.position(xOffset + 640 / 2 - button.width / 2, yOffset + 480 + 10);  // Wyśrodkowanie przycisku pod kamerą
   button.mousePressed(takePhoto);
 }
@@ -42,7 +42,7 @@ function draw() {
   drawButton(button2X, buttonY, buttonWidth, buttonHeight, "Dalej", '#E30613');
   
   let xOffset = (width - 640) / 2;  // Obliczanie przesunięcia w poziomie
-  let yOffset = (height - 480) / 2; // Obliczanie przesunięcia w pionie
+  let yOffset = (height - 480) / 2 + 100; // Przesunięcie kamery i elipsy o 100 pikseli w dół
   
   if (showLiveFeed) {
     image(capture, xOffset, yOffset, 640, 480);  // Wyśrodkowanie obrazu z kamery
@@ -53,7 +53,7 @@ function draw() {
     strokeWeight(2);
     
     // Rysowanie owalu twarzy
-    ellipse(width / 2, height / 2, 200, 300);
+    ellipse(width / 2, height / 2 + 100, 200, 300);  // Przesunięcie elipsy o 100 pikseli w dół
     
     // Wyświetlanie instrukcji
     fill(0);
@@ -61,7 +61,8 @@ function draw() {
 
     textAlign(CENTER, CENTER);
     textStyle(BOLDITALIC);
-    text('Umieść twarz w zaznaczonym miejscu i naciśnij "Zrób zdjęcie"', width / 2, yOffset - 30);
+    textSize(27);
+    text('Umieść twarz w zaznaczonym miejscu i naciśnij "Zrób zdjęcie"', width / 2, 300);
   } else {
     // Wyświetlanie przechwyconego obrazu
     image(img, xOffset, yOffset, 640, 480);  // Wyśrodkowanie przechwyconego obrazu
@@ -102,21 +103,20 @@ function mousePressed() {
   }
 }
 
-
 function takePhoto() {
   if (showLiveFeed) {
     img = capture.get();
     
     if (photoStage === 0) {
       img.filter(BLUR, 3); // Zastosowanie filtru rozmycia
-      showMessage("Zdjęcie jest rozmyte, proszę spróbować ponownie.", "red");
+      showMessage("Zdjęcie jest rozmyte, proszę zrobić kolejne.", "red");
     } else if (photoStage === 1) {
       img = increaseBrightness(img, 150); // Zwiększenie jasności, aby symulować prześwietlenie
-      showMessage("Zdjęcie jest prześwietlone, proszę spróbować ponownie.", "red");
+      showMessage("Zdjęcie jest prześwietlone, proszę zrobić kolejne.", "red");
     } else if (photoStage === 2) {
       img.filter(BLUR, 3); // Zastosowanie filtru rozmycia
       img = increaseBrightness(img, 150); // Zwiększenie jasności, aby symulować prześwietlenie
-      showMessage("Zdjęcie jest poprawnie wykonane.", "green");
+      showMessage("Zdjęcie jest świetnie wykonane!", "green");
     }
 
     showLiveFeed = false; // Przestań wyświetlać live feed
